@@ -43,6 +43,30 @@
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
+    <li class="nav-item ">
+      <a class="nav-link" href="{{ url('/teacher') }}">
+        <i class="menu-icon mdi mdi-television"></i>
+        <span class="menu-title">Guru</span>
+      </a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" href="{{ url('/student') }}">
+        <i class="menu-icon mdi mdi-television"></i>
+        <span class="menu-title">Siswa</span>
+      </a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" href="{{ url('/theory') }}">
+        <i class="menu-icon mdi mdi-television"></i>
+        <span class="menu-title">Materi</span>
+      </a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" href="{{ url('/exam') }}">
+        <i class="menu-icon mdi mdi-television"></i>
+        <span class="menu-title">Ujian</span>
+      </a>
+    </li>
     <li class="nav-item">
       <a class="nav-link" href="https://www.bootstrapdash.com/demo/star-laravel-free/documentation/documentation.html" target="_blank">
         <i class="menu-icon mdi mdi-file-outline"></i>
