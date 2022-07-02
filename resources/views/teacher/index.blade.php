@@ -34,7 +34,12 @@
                                     <td> {{ $teacher->name }} </td>
                                     <td>
                                         <button type="button" data-id="{{ $teacher->id }}" data-toggle="modal" data-target="#edit" class="btn-edit btn btn-primary btn-fw">Edit</button>
-                                        <button type="button" class="btn btn-danger btn-fw">Hapus</button>
+                                        <form class="d-inline" action="{{ url('teacher').'/'.$teacher->id }}" method="POST"
+                                            onclick="return confirm('Apakah Anda yakin menghapus data ini ?')">
+                                            <input type="hidden" name="_method" value="delete" />
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-danger btn-fw">Hapus</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach

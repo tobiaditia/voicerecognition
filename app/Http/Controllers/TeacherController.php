@@ -54,4 +54,15 @@ class TeacherController extends Controller
 
         return redirect('teacher')->with('success','Berhasil Edit data');
     }
+
+    public function destroy($id)
+    {
+        $data = User::find($id);
+
+        if ($data->delete()) {
+            return redirect('teacher')->with('success','Berhasil Hapus data');
+        } else {
+            return redirect('teacher')->with('success','Gagal Hapus data');
+        }
+    }
 }

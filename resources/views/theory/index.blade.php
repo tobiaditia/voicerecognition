@@ -4,119 +4,190 @@
 @endpush
 
 @section('content')
-<div class="row">
-  <div class="col-lg-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Striped Table</h4>
-        <p class="card-description"> Add class <code>.table-striped</code> </p>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th> User </th>
-                <th> First name </th>
-                <th> Progress </th>
-                <th> Amount </th>
-                <th> Deadline </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="py-1">
-                  <img src="{{ url('assets/images/faces-clipart/pic-1.png') }}" alt="image" /> </td>
-                <td> Herman Beck </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td> $ 77.99 </td>
-                <td> May 15, 2015 </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="{{ url('assets/images/faces-clipart/pic-2.png') }}" alt="image" /> </td>
-                <td> Messsy Adam </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td> $245.30 </td>
-                <td> July 1, 2015 </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="{{ url('assets/images/faces-clipart/pic-3.png') }}" alt="image" /> </td>
-                <td> John Richards </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td> $138.00 </td>
-                <td> Apr 12, 2015 </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="{{ url('assets/images/faces-clipart/pic-4.png') }}" alt="image" /> </td>
-                <td> Peter Meggik </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td> $ 77.99 </td>
-                <td> May 15, 2015 </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="{{ url('assets/images/faces-clipart/pic-1.png') }}" alt="image" /> </td>
-                <td> Edward </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td> $ 160.25 </td>
-                <td> May 03, 2015 </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="{{ url('assets/images/faces-clipart/pic-2.png') }}" alt="image" /> </td>
-                <td> John Doe </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td> $ 123.21 </td>
-                <td> April 05, 2015 </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="{{ url('assets/images/faces-clipart/pic-3.png') }}" alt="image" /> </td>
-                <td> Henry Tom </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td> $ 150.00 </td>
-                <td> June 16, 2015 </td>
-              </tr>
-            </tbody>
-          </table>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                <div class="card-body">
+                    <div class="w-100 d-flex justify-content-between">
+
+                        <h4 class="card-title">Data Pelajaran</h4>
+                        <button type="button" class="btn btn-success btn-fw" data-toggle="modal"
+                            data-target="#add">Tambah</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th> Nama </th>
+                                    <th> Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($theorys as $theory)
+                                <tr>
+                                    <td> {{ $theory->name }} </td>
+                                    <td>
+                                        <button type="button" data-id="{{ $theory->id }}" data-toggle="modal" data-target="#edit" class="btn-edit btn btn-primary btn-fw">Edit</button>
+                                        <form class="d-inline" action="{{ url('theory').'/'.$theory->id }}" method="POST"
+                                            onclick="return confirm('Apakah Anda yakin menghapus data ini ?')">
+                                            <input type="hidden" name="_method" value="delete" />
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-danger btn-fw">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
+
+    <div class="modal fade" id="add">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah guru</h4>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" action="{{ url('theory'); }}" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Nama</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" name="name" required>
+                                    @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Username</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class=" @error('username') is-invalid @enderror form-control form-control-sm" name="username" required>
+                                    @error('username')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Password</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class=" @error('password') is-invalid @enderror form-control form-control-sm" name="password" required>
+                                    @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success mr-2">Simpan Data</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit guru</h4>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" action="{{ url('theory/edit'); }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="id" id="idEdit">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Nama</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input id="nameEdit" type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" name="name" required>
+                                    @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Username</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input id="usernameEdit" type="text" class=" @error('username') is-invalid @enderror form-control form-control-sm" name="username" required>
+                                    @error('username')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Password</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class=" @error('password') is-invalid @enderror form-control form-control-sm" name="password">
+                                    @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success mr-2">Simpan Data</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('plugin-scripts')
 @endpush
 
 @push('custom-scripts')
+<script>
+    $('.btn-edit').on('click', function() {
+        const id = $(this).data('id');
+        let url = "{{ url('theory') }}" + "/"+id+"/edit";
+        $.ajax({
+            url: url,
+            method: 'get',
+            dataType: 'json',
+            success: function(data) {
+				$('#idEdit').val(data.id);
+				$('#nameEdit').val(data.name);
+				$('#usernameEdit').val(data.username);
+            }
+        });
+    });
+</script>
 @endpush
