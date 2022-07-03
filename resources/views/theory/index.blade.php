@@ -17,8 +17,7 @@
                     <div class="w-100 d-flex justify-content-between">
 
                         <h4 class="card-title">Data Pelajaran</h4>
-                        <button type="button" class="btn btn-success btn-fw" data-toggle="modal"
-                            data-target="#add">Tambah</button>
+                        <a class="btn btn-success btn-fw" href="{{ url('theory/add') }}">Tambah</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -33,7 +32,7 @@
                                 <tr>
                                     <td> {{ $theory->name }} </td>
                                     <td>
-                                        <button type="button" data-id="{{ $theory->id }}" data-toggle="modal" data-target="#edit" class="btn-edit btn btn-primary btn-fw">Edit</button>
+                                        <a href="{{ url('theory'.'/'.$theory->id.'/edit') }}" class="btn-edit btn btn-primary btn-fw">Edit</a>
                                         <form class="d-inline" action="{{ url('theory').'/'.$theory->id }}" method="POST"
                                             onclick="return confirm('Apakah Anda yakin menghapus data ini ?')">
                                             <input type="hidden" name="_method" value="delete" />
@@ -51,143 +50,10 @@
         </div>
     </div>
 
-    <div class="modal fade" id="add">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Tambah guru</h4>
-                </div>
-                <div class="modal-body">
-                    <form enctype="multipart/form-data" action="{{ url('theory'); }}" method="post">
-                        @csrf
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Nama</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" name="name" required>
-                                    @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Username</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" class=" @error('username') is-invalid @enderror form-control form-control-sm" name="username" required>
-                                    @error('username')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Password</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" class=" @error('password') is-invalid @enderror form-control form-control-sm" name="password" required>
-                                    @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-success mr-2">Simpan Data</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="edit">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit guru</h4>
-                </div>
-                <div class="modal-body">
-                    <form enctype="multipart/form-data" action="{{ url('theory/edit'); }}" method="post">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="id" id="idEdit">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Nama</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input id="nameEdit" type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" name="name" required>
-                                    @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Username</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input id="usernameEdit" type="text" class=" @error('username') is-invalid @enderror form-control form-control-sm" name="username" required>
-                                    @error('username')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Password</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" class=" @error('password') is-invalid @enderror form-control form-control-sm" name="password">
-                                    @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-success mr-2">Simpan Data</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('plugin-scripts')
 @endpush
 
 @push('custom-scripts')
-<script>
-    $('.btn-edit').on('click', function() {
-        const id = $(this).data('id');
-        let url = "{{ url('theory') }}" + "/"+id+"/edit";
-        $.ajax({
-            url: url,
-            method: 'get',
-            dataType: 'json',
-            success: function(data) {
-				$('#idEdit').val(data.id);
-				$('#nameEdit').val(data.name);
-				$('#usernameEdit').val(data.username);
-            }
-        });
-    });
-</script>
 @endpush

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classs;
 use App\Models\Theory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,42 +17,55 @@ class TheoryController extends Controller
         return view('theory.index',$data);
     }
 
+    public function add()
+    {
+        $data['classes'] = Classs::get();
+        return view('theory.add',$data);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'username' => 'required',
-            'password' => 'required',
+            'content' => 'required',
+            'class_id' => 'required',
         ]);
 
         if ($validator->fails()) return redirect('theory')->withErrors($validator)->withInput();
 
-        $user = new Theory();
-        $user->role_id = 2;
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->password = Hash::make($request->password);
-        $user->save();
+        $data = new Theory();
+        $data->name = $request->name;
+        $data->content = $request->content;
+        $data->class_id = $request->class_id;
+        $data->users_id = Auth::user()->id;
+        $data->save();
 
         return redirect('theory')->with('success','Berhasil Tambah data');
     }
 
     public function edit($id)
     {
-        $data = Theory::find($id);
+        $data['theory'] = Theory::find($id);
+        $data['classes'] = Classs::get();
 
-        return response()->json($data);
+        return view('theory.edit',$data);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $user = Theory::find($request->id);
-        $user->name = $request->name;
-        $user->username = $request->username;
-        if (!empty($request->password)) {
-            $user->password = Hash::make($request->password);
-        }
-        $user->save();
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'content' => 'required',
+            'class_id' => 'required',
+        ]);
+
+        if ($validator->fails()) return redirect('theory')->withErrors($validator)->withInput();
+
+        $data = Theory::find($id);
+        $data->name = $request->name;
+        $data->content = $request->content;
+        $data->class_id = $request->class_id;
+        $data->save();
 
         return redirect('theory')->with('success','Berhasil Edit data');
     }
