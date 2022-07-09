@@ -31,8 +31,7 @@ class ExamController extends Controller
             'name' => 'required',
         ]);
 
-        if ($validator->fails()) return redirect('student')->withErrors($validator)->withInput();
-
+        if ($validator->fails()) return redirect('exam/add')->withErrors($validator)->withInput();
         DB::beginTransaction();
         try {
             $exam = new Exam();
@@ -52,11 +51,11 @@ class ExamController extends Controller
 
                 if ($request->type == 'multiple_choice') {
                     foreach ($q['items'] as $item) {
-                        $examMultipleChoiceItem = new ExamMultipleChoiceItem();
-                        $examMultipleChoiceItem->exam_question_id = $examQuestion->id;
-                        $examMultipleChoiceItem->content = $item['content'];
-                        $examMultipleChoiceItem->correct_answer = $item['correct'];
-                        $examMultipleChoiceItem->save();
+                        // $examMultipleChoiceItem = new ExamMultipleChoiceItem();
+                        // $examMultipleChoiceItem->exam_question_id = $examQuestion->id;
+                        // $examMultipleChoiceItem->content = $item['content'];
+                        // $examMultipleChoiceItem->correct_answer = $item['correct'];
+                        // $examMultipleChoiceItem->save();
                     }
                 }
             }
@@ -68,5 +67,25 @@ class ExamController extends Controller
             return false;
         }
         return false;
+    }
+
+    public function edit($id)
+    {
+        $data['exams'] = Exam::with('question.multiple_choice')->find($id);
+        $data['classes'] = Classs::get();
+        // dd($data);
+        return view('exam.edit',$data);
+    }
+
+    public function destroy($id)
+    {
+        $data = Exam::find($id);
+
+        if ($data->delete()) {
+            return redirect('exam')->with('success','Berhasil Hapus data');
+        } else {
+            return redirect('exam')->with('success','Gagal Hapus data');
+        }
+
     }
 }

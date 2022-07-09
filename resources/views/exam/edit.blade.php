@@ -15,7 +15,7 @@
                 @endif
                 <div class="card-body">
                     <div class="w-100 d-flex justify-content-between">
-                        <h4 class="card-title">Tambah Data Ujian</h4>
+                        <h4 class="card-title">Edit Data Ujian</h4>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
@@ -78,62 +78,60 @@
                                             class="form-control form-control-sm"></textarea>
                                     </td>
                                     <td style="width: 40%;">
-                                        <div class="ishidden">
-                                            <div class="row mb-1">
-                                                <div class="col-md-1">
-                                                    <label>A</label>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <input name="content[]" id="content_1_A" type="text"
-                                                        class="form-control form-control-sm">
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <input checked data-number="1" class="form-check-input" value=""
-                                                        type="radio" name="exam_multiple_choice_item_1"
-                                                        id="exam_multiple_choice_item_1_A">
-                                                </div>
+                                        <div class="row mb-1">
+                                            <div class="col-md-1">
+                                                <label>A</label>
                                             </div>
-                                            <div class="row mb-1">
-                                                <div class="col-md-1">
-                                                    <label>B</label>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <input name="content[]" id="content_1_B" type="text"
-                                                        class="form-control form-control-sm">
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <input data-number="1" class="form-check-input" value=""
-                                                        type="radio" name="exam_multiple_choice_item_1"
-                                                        id="exam_multiple_choice_item_1_B">
-                                                </div>
+                                            <div class="col-md-10">
+                                                <input name="content[]" id="content_1_A" type="text"
+                                                    class="form-control form-control-sm">
                                             </div>
-                                            <div class="row mb-1">
-                                                <div class="col-md-1">
-                                                    <label>C</label>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <input name="content[]" id="content_1_C" type="text"
-                                                        class="form-control form-control-sm">
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <input data-number="1" class="form-check-input" value=""
-                                                        type="radio" name="exam_multiple_choice_item_1"
-                                                        id="exam_multiple_choice_item_1_C">
-                                                </div>
+                                            <div class="col-md-1">
+                                                <input checked data-number="1" class="form-check-input" value=""
+                                                    type="radio" name="exam_multiple_choice_item_1"
+                                                    id="exam_multiple_choice_item_1_A">
                                             </div>
-                                            <div class="row mb-1">
-                                                <div class="col-md-1">
-                                                    <label>D</label>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <input name="content[]" id="content_1_D" type="text"
-                                                        class="form-control form-control-sm">
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <input data-number="1" class="form-check-input" value=""
-                                                        type="radio" name="exam_multiple_choice_item_1"
-                                                        id="exam_multiple_choice_item_1_D">
-                                                </div>
+                                        </div>
+                                        <div class="row mb-1">
+                                            <div class="col-md-1">
+                                                <label>B</label>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input name="content[]" id="content_1_B" type="text"
+                                                    class="form-control form-control-sm">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <input data-number="1" class="form-check-input" value=""
+                                                    type="radio" name="exam_multiple_choice_item_1"
+                                                    id="exam_multiple_choice_item_1_B">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-1">
+                                            <div class="col-md-1">
+                                                <label>C</label>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input name="content[]" id="content_1_C" type="text"
+                                                    class="form-control form-control-sm">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <input data-number="1" class="form-check-input" value=""
+                                                    type="radio" name="exam_multiple_choice_item_1"
+                                                    id="exam_multiple_choice_item_1_C">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-1">
+                                            <div class="col-md-1">
+                                                <label>D</label>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input name="content[]" id="content_1_D" type="text"
+                                                    class="form-control form-control-sm">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <input data-number="1" class="form-check-input" value=""
+                                                    type="radio" name="exam_multiple_choice_item_1"
+                                                    id="exam_multiple_choice_item_1_D">
                                             </div>
                                         </div>
                                     </td>
@@ -170,15 +168,6 @@
                 }
             });
 
-            $('input[type=radio][name=type]').change(function() {
-                if (this.value == 'multiple_choice') {
-                    $(".ishidden").css("visibility", "visible");
-                }
-                else{
-                    $(".ishidden").css("visibility", "hidden");
-                }
-            });
-
             $("#add-row").click(function() {
                 markup = `
                     <tr>
@@ -187,58 +176,56 @@
                             <textarea  data-number="` + lineNo + `" name="question[]" id="" rows="5" placeholder="Soal" class="form-control form-control-sm"></textarea>
                         </td>
                         <td style="width: 40%;">
-                            <div class="ishidden">
-                                <div class="row mb-1">
-                                    <div class="col-md-1">
-                                        <label>A</label>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input name="content[]" id="content_` + lineNo + `_A" type="text" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <input checked data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
-                                            name="exam_multiple_choice_item_` + lineNo +
-                                            `" id="exam_multiple_choice_item_` + lineNo + `_A">
-                                    </div>
+                            <div class="row mb-1">
+                                <div class="col-md-1">
+                                    <label>A</label>
                                 </div>
-                                <div class="row mb-1">
-                                    <div class="col-md-1">
-                                        <label>B</label>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input name="content[]" id="content_` + lineNo + `_B" type="text" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
-                                            name="exam_multiple_choice_item_` + lineNo +
-                                            `" id="exam_multiple_choice_item_` + lineNo + `_B">
-                                    </div>
+                                <div class="col-md-10">
+                                    <input name="content[]" id="content_` + lineNo + `_A" type="text" class="form-control form-control-sm">
                                 </div>
-                                <div class="row mb-1">
-                                    <div class="col-md-1">
-                                        <label>C</label>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input name="content[]" id="content_` + lineNo + `_C" type="text" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
-                                            name="exam_multiple_choice_item_` + lineNo +
-                                            `" id="exam_multiple_choice_item_` + lineNo + `_C">
-                                    </div>
+                                <div class="col-md-1">
+                                    <input checked data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
+                                        name="exam_multiple_choice_item_` + lineNo +
+                    `" id="exam_multiple_choice_item_` + lineNo + `_A">
                                 </div>
-                                <div class="row mb-1">
-                                    <div class="col-md-1">
-                                        <label>D</label>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input name="content[]" id="content_` + lineNo + `_D" type="text" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
-                                            name="exam_multiple_choice_item_` + lineNo +
-                                            `" id="exam_multiple_choice_item_` + lineNo + `_D">
-                                    </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-md-1">
+                                    <label>B</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input name="content[]" id="content_` + lineNo + `_B" type="text" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-1">
+                                    <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
+                                        name="exam_multiple_choice_item_` + lineNo +
+                    `" id="exam_multiple_choice_item_` + lineNo + `_B">
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-md-1">
+                                    <label>C</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input name="content[]" id="content_` + lineNo + `_C" type="text" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-1">
+                                    <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
+                                        name="exam_multiple_choice_item_` + lineNo +
+                    `" id="exam_multiple_choice_item_` + lineNo + `_C">
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-md-1">
+                                    <label>D</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input name="content[]" id="content_` + lineNo + `_D" type="text" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-1">
+                                    <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
+                                        name="exam_multiple_choice_item_` + lineNo +
+                    `" id="exam_multiple_choice_item_` + lineNo + `_D">
                                 </div>
                             </div>
                         </td>
@@ -292,7 +279,7 @@
                     class_id: $("#class_id").val(),
                     users_id: 1,
                     name: $("#name").val(),
-                    type: $("input[name=type]:checked").val(),
+                    type: $("input[name=type]").val(),
                     question: questions
                 };
                 // window.location.href = url;
