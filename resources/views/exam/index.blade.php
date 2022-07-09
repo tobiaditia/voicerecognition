@@ -17,14 +17,15 @@
                     <div class="w-100 d-flex justify-content-between">
 
                         <h4 class="card-title">Data Ujian</h4>
-                        <button type="button" class="btn btn-success btn-fw" data-toggle="modal"
-                            data-target="#add">Tambah</button>
+                        <a class="btn btn-success btn-fw" href="{{ url('exam/add') }}">Tambah</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th> Nama </th>
+                                    <th> Tipe </th>
+                                    <th> Kelas </th>
                                     <th> Aksi</th>
                                 </tr>
                             </thead>
@@ -32,6 +33,8 @@
                                 @foreach ($exams as $exam)
                                 <tr>
                                     <td> {{ $exam->name }} </td>
+                                    <td> {{ $exam->type }} </td>
+                                    <td> {{ $exam->class_id }} </td>
                                     <td>
                                         <button type="button" data-id="{{ $exam->id }}" data-toggle="modal" data-target="#edit" class="btn-edit btn btn-primary btn-fw">Edit</button>
                                         <form class="d-inline" action="{{ url('exam').'/'.$exam->id }}" method="POST"

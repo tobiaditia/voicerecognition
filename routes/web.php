@@ -45,6 +45,7 @@ Route::group(['middleware'=>['auth']],function (){
     Route::delete('theory/{id}',[TheoryController::class,'destroy']);
 
     Route::get('exam',[ExamController::class,'index']);
+    Route::get('exam/add',[ExamController::class,'add']);
     Route::post('exam',[ExamController::class,'store']);
     Route::put('exam/edit',[ExamController::class,'update']);
     Route::get('exam/{id}/edit',[ExamController::class,'edit']);

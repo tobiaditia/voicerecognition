@@ -155,7 +155,7 @@
                                 <div class="col-md-9">
                                     <select class="form-control" style="padding: 0 0.8rem;" name="class_id" id="classEdit">
                                         @foreach ($classes as $class)
-                                            <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                            <option id="editClass{{ $class->id }}" value="{{ $class->id }}">{{ $class->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -214,6 +214,7 @@
 				$('#idEdit').val(data.id);
 				$('#nameEdit').val(data.name);
 				$('#usernameEdit').val(data.username);
+				$('#editClass'+data.class_id).attr("selected","selected");
             }
         });
     });
