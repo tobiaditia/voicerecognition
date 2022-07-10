@@ -4,11 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class TeacherController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (Auth::user()->role_id != 1) {
+                return redirect('/');
+            }
+            return $next($request);
+        });
+    }
+
     public function index()
     {
         $data['teachers'] = User::where('role_id',2)->paginate(10);

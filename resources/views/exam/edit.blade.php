@@ -22,7 +22,7 @@
                             <label>Nama</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" id="name" class="form-control form-control-sm" name="name"
+                            <input type="text" value="{{ $exams->name }}" id="name" class="form-control form-control-sm" name="name"
                                 required>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                         <div class="col-md-9">
                             <select class="form-control" style="padding: 0 0.8rem;" name="class_id" id="class_id">
                                 @foreach ($classes as $class)
-                                    <option value="{{ $class->id }}">
+                                    <option {{ $exams->class_id == $class->id ? 'selected' : '' }} value="{{ $class->id }}">
                                         {{ $class->name }}</option>
                                 @endforeach
                             </select>
@@ -53,10 +53,10 @@
                         </div>
                         <div class="col-md-9">
                             <div class="form-check">
-                                <input checked class="form-check-input" value="multiple_choice" type="radio" name="type">
+                                <input {{ $exams->type == 'multiple_choice' ? 'checked' : '' }} class="form-check-input" value="multiple_choice" type="radio" name="type">
                                 Pilihan Ganda
                                 <br>
-                                <input class="form-check-input" value="essay" type="radio" name="type"> Isian
+                                <input {{ $exams->type == 'essay' ? 'checked' : '' }} class="form-check-input" value="essay" type="radio" name="type"> Isian
                             </div>
                         </div>
                     </div>
@@ -75,63 +75,65 @@
                                     <td style="width: 10%;">1</td>
                                     <td style="width: 40%;">
                                         <textarea data-number="1" name="question[]" id="" rows="5" placeholder="Soal"
-                                            class="form-control form-control-sm"></textarea>
+                                            class="form-control form-control-sm"> {{ $exams->question[0]->question }} </textarea>
                                     </td>
                                     <td style="width: 40%;">
-                                        <div class="row mb-1">
-                                            <div class="col-md-1">
-                                                <label>A</label>
+                                        <div class="ishidden">
+                                            <div class="row mb-1">
+                                                <div class="col-md-1">
+                                                    <label>A</label>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <input value="{{ $exams->question[0]->multiple_choice[0]->content ?? '' }}" name="content[]" id="content_1_A" type="text"
+                                                        class="form-control form-control-sm">
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <input {{ !empty($exams->question[0]->multiple_choice[0]->correct_answer) ? 'checked' : '' }} data-number="1" class="form-check-input" value=""
+                                                        type="radio" name="exam_multiple_choice_item_1"
+                                                        id="exam_multiple_choice_item_1_A">
+                                                </div>
                                             </div>
-                                            <div class="col-md-10">
-                                                <input name="content[]" id="content_1_A" type="text"
-                                                    class="form-control form-control-sm">
+                                            <div class="row mb-1">
+                                                <div class="col-md-1">
+                                                    <label>B</label>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <input value="{{ $exams->question[0]->multiple_choice[1]->content ?? '' }}" name="content[]" id="content_1_B" type="text"
+                                                        class="form-control form-control-sm">
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <input {{ !empty($exams->question[0]->multiple_choice[1]->correct_answer) ? 'checked' : '' }} data-number="1" class="form-check-input" value=""
+                                                        type="radio" name="exam_multiple_choice_item_1"
+                                                        id="exam_multiple_choice_item_1_B">
+                                                </div>
                                             </div>
-                                            <div class="col-md-1">
-                                                <input checked data-number="1" class="form-check-input" value=""
-                                                    type="radio" name="exam_multiple_choice_item_1"
-                                                    id="exam_multiple_choice_item_1_A">
+                                            <div class="row mb-1">
+                                                <div class="col-md-1">
+                                                    <label>C</label>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <input value="{{ $exams->question[0]->multiple_choice[2]->content ?? '' }}" name="content[]" id="content_1_C" type="text"
+                                                        class="form-control form-control-sm">
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <input {{ !empty($exams->question[0]->multiple_choice[2]->correct_answer) ? 'checked' : '' }} data-number="1" class="form-check-input" value=""
+                                                        type="radio" name="exam_multiple_choice_item_1"
+                                                        id="exam_multiple_choice_item_1_C">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row mb-1">
-                                            <div class="col-md-1">
-                                                <label>B</label>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <input name="content[]" id="content_1_B" type="text"
-                                                    class="form-control form-control-sm">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <input data-number="1" class="form-check-input" value=""
-                                                    type="radio" name="exam_multiple_choice_item_1"
-                                                    id="exam_multiple_choice_item_1_B">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-1">
-                                            <div class="col-md-1">
-                                                <label>C</label>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <input name="content[]" id="content_1_C" type="text"
-                                                    class="form-control form-control-sm">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <input data-number="1" class="form-check-input" value=""
-                                                    type="radio" name="exam_multiple_choice_item_1"
-                                                    id="exam_multiple_choice_item_1_C">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-1">
-                                            <div class="col-md-1">
-                                                <label>D</label>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <input name="content[]" id="content_1_D" type="text"
-                                                    class="form-control form-control-sm">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <input data-number="1" class="form-check-input" value=""
-                                                    type="radio" name="exam_multiple_choice_item_1"
-                                                    id="exam_multiple_choice_item_1_D">
+                                            <div class="row mb-1">
+                                                <div class="col-md-1">
+                                                    <label>D</label>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <input value="{{ $exams->question[0]->multiple_choice[3]->content ?? '' }}" name="content[]" id="content_1_D" type="text"
+                                                        class="form-control form-control-sm">
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <input {{ !empty($exams->question[0]->multiple_choice[3]->correct_answer) ? 'checked' : '' }} data-number="1" class="form-check-input" value=""
+                                                        type="radio" name="exam_multiple_choice_item_1"
+                                                        id="exam_multiple_choice_item_1_D">
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
@@ -160,7 +162,8 @@
     <script>
         let lineNo = 2;
         let markup = '';
-        let url = "{{ url('exam') }}";
+        let id = "{{ $exams->id }}";
+        let url = "{{ url('exam') }}"+'/'+id;
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
@@ -168,64 +171,90 @@
                 }
             });
 
+            if ($('input[type=radio][name=type]').value == 'multiple_choice') {
+                $(".ishidden").css("visibility", "visible");
+            }else{
+                $(".ishidden").css("visibility", "hidden");
+            }
+
+            $('input[type=radio][name=type]').change(function() {
+                if (this.value == 'multiple_choice') {
+                    $(".ishidden").css("visibility", "visible");
+                }
+                else{
+                    $(".ishidden").css("visibility", "hidden");
+                }
+            });
+
+
+
             $("#add-row").click(function() {
-                markup = `
+                markup = addMarkUp(lineNo);
+                var tableBody = $("table tbody");
+                tableBody.append(markup);
+                lineNo++;
+            });
+
+            function addMarkUp(lineNo = 2){
+                return `
                     <tr>
                         <td style="width: 10%;">1</td>
                         <td style="width: 40%;">
                             <textarea  data-number="` + lineNo + `" name="question[]" id="" rows="5" placeholder="Soal" class="form-control form-control-sm"></textarea>
                         </td>
                         <td style="width: 40%;">
-                            <div class="row mb-1">
-                                <div class="col-md-1">
-                                    <label>A</label>
+                            <div class="ishidden">
+                                <div class="row mb-1">
+                                    <div class="col-md-1">
+                                        <label>A</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input name="content[]" id="content_` + lineNo + `_A" type="text" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input checked data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
+                                            name="exam_multiple_choice_item_` + lineNo +
+                                            `" id="exam_multiple_choice_item_` + lineNo + `_A">
+                                    </div>
                                 </div>
-                                <div class="col-md-10">
-                                    <input name="content[]" id="content_` + lineNo + `_A" type="text" class="form-control form-control-sm">
+                                <div class="row mb-1">
+                                    <div class="col-md-1">
+                                        <label>B</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input name="content[]" id="content_` + lineNo + `_B" type="text" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
+                                            name="exam_multiple_choice_item_` + lineNo +
+                                            `" id="exam_multiple_choice_item_` + lineNo + `_B">
+                                    </div>
                                 </div>
-                                <div class="col-md-1">
-                                    <input checked data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
-                                        name="exam_multiple_choice_item_` + lineNo +
-                    `" id="exam_multiple_choice_item_` + lineNo + `_A">
+                                <div class="row mb-1">
+                                    <div class="col-md-1">
+                                        <label>C</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input name="content[]" id="content_` + lineNo + `_C" type="text" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
+                                            name="exam_multiple_choice_item_` + lineNo +
+                                            `" id="exam_multiple_choice_item_` + lineNo + `_C">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row mb-1">
-                                <div class="col-md-1">
-                                    <label>B</label>
-                                </div>
-                                <div class="col-md-10">
-                                    <input name="content[]" id="content_` + lineNo + `_B" type="text" class="form-control form-control-sm">
-                                </div>
-                                <div class="col-md-1">
-                                    <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
-                                        name="exam_multiple_choice_item_` + lineNo +
-                    `" id="exam_multiple_choice_item_` + lineNo + `_B">
-                                </div>
-                            </div>
-                            <div class="row mb-1">
-                                <div class="col-md-1">
-                                    <label>C</label>
-                                </div>
-                                <div class="col-md-10">
-                                    <input name="content[]" id="content_` + lineNo + `_C" type="text" class="form-control form-control-sm">
-                                </div>
-                                <div class="col-md-1">
-                                    <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
-                                        name="exam_multiple_choice_item_` + lineNo +
-                    `" id="exam_multiple_choice_item_` + lineNo + `_C">
-                                </div>
-                            </div>
-                            <div class="row mb-1">
-                                <div class="col-md-1">
-                                    <label>D</label>
-                                </div>
-                                <div class="col-md-10">
-                                    <input name="content[]" id="content_` + lineNo + `_D" type="text" class="form-control form-control-sm">
-                                </div>
-                                <div class="col-md-1">
-                                    <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
-                                        name="exam_multiple_choice_item_` + lineNo +
-                    `" id="exam_multiple_choice_item_` + lineNo + `_D">
+                                <div class="row mb-1">
+                                    <div class="col-md-1">
+                                        <label>D</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input name="content[]" id="content_` + lineNo + `_D" type="text" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input  data-number="` + lineNo + `" class="form-check-input" value="" type="radio"
+                                            name="exam_multiple_choice_item_` + lineNo +
+                                            `" id="exam_multiple_choice_item_` + lineNo + `_D">
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -236,10 +265,7 @@
                         </td>
                     </tr>
                 `;
-                var tableBody = $("table tbody");
-                tableBody.append(markup);
-                lineNo++;
-            });
+            }
 
             $(document).on('click', '.btn-delete-tr', function() {
                 $(this).closest('tr').remove();
@@ -279,7 +305,7 @@
                     class_id: $("#class_id").val(),
                     users_id: 1,
                     name: $("#name").val(),
-                    type: $("input[name=type]").val(),
+                    type: $("input[name=type]:checked").val(),
                     question: questions
                 };
                 // window.location.href = url;
@@ -288,10 +314,13 @@
                     url: url,
                     data: data,
                     success: function(response) {
-                        if (response) {
+                        if (response == true || response == 1) {
                             window.location = "{{ url('exam') }}";
-                            console.log(response);
+                            // console.log(response);
+                            // console.log('l');
                         }
+                        // console.log(response);
+                        // console.log('p');
                     },
                     error: function(response) {
                         console.log(response);

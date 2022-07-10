@@ -18,7 +18,7 @@ class CreateExamUserDetailsTable extends Migration
             $table->integer('exam_user_id');
             $table->integer('exam_question_id');
             $table->string('answer');
-            $table->boolean('correct');
+            $table->boolean('correct')->nullable();
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('login', [AuthController::class,'index'])->name('login');
 Route::post('login', [AuthController::class,'login'])->name('login-store');
+Route::get('logout', [AuthController::class,'logout'])->name('logout');
 
 Route::group(['middleware'=>['auth']],function (){
     Route::get('/', function () {
@@ -47,7 +48,10 @@ Route::group(['middleware'=>['auth']],function (){
     Route::get('exam',[ExamController::class,'index']);
     Route::get('exam/add',[ExamController::class,'add']);
     Route::post('exam',[ExamController::class,'store']);
-    Route::put('exam/edit',[ExamController::class,'update']);
+    Route::post('examuserdetail',[ExamController::class,'examuserdetail']);
+    Route::post('exam/{id}',[ExamController::class,'update']);
     Route::get('exam/{id}/edit',[ExamController::class,'edit']);
+    Route::get('exam/{id}/hasil',[ExamController::class,'hasil']);
+    Route::get('exam/{id}/hasil/{exam_user_id}',[ExamController::class,'hasilUser']);
     Route::delete('exam/{id}',[ExamController::class,'destroy']);
 });

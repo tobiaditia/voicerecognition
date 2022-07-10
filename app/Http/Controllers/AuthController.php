@@ -23,22 +23,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
-        // dd('k');
-        // $this->validate($request,
-        //     [
-        //         'username' => 'required|exists:users',
-        //         'password' => 'required'
-        //     ]
-        // );
-
-
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-
-            return redirect(route('dashboard'));
-
-        }
         $validator = Validator::make([], []);
-        $validator->errors()->add('password', 'This is wrong password');
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            if (Auth::user()->role_id <= 2) {
+                return redirect(route('dashboard'));
+            }else{
+                $validator->errors()->add('password', 'User tidak ada');
+            }
+        }else{
+            $validator->errors()->add('password', 'This is wrong password');
+        }
         throw new ValidationException($validator);
     }
 

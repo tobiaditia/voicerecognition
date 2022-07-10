@@ -13,7 +13,11 @@ class TheoryController extends Controller
 {
     public function index()
     {
-        $data['theorys'] = Theory::paginate(10);
+        if (Auth::user()->role_id == 1) {
+            $data['theorys'] = Theory::paginate(10);
+        }else{
+            $data['theorys'] = Theory::where('users_id',Auth::user()->id)->paginate(10);
+        }
         return view('theory.index',$data);
     }
 

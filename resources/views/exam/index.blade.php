@@ -43,6 +43,7 @@
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <button type="submit" class="btn btn-danger btn-fw">Hapus</button>
                                         </form>
+                                        <a href="{{ url('exam/') . '/' . $exam->id . '/hasil' }}" class="btn-edit btn btn-primary btn-fw">Hasil</a>
                                     </td>
                                 </tr>
                                 @endforeach

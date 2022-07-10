@@ -7,10 +7,10 @@
             <img src="{{ url('assets/images/faces/face8.jpg') }}" alt="profile image">
           </div>
           <div class="text-wrapper">
-            <p class="profile-name">Richard V.Welsh</p>
+            <p class="profile-name">{{ Auth::user()->name }}</p>
             <div class="dropdown" data-display="static">
               <a href="#" class="nav-link d-flex user-switch-dropdown-toggler" id="UsersettingsDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <small class="designation text-muted">Manager</small>
+                <small class="designation text-muted">{{ Auth::user()->username }}</small>
                 <span class="status-indicator online"></span>
               </a>
               <div class="dropdown-menu" aria-labelledby="UsersettingsDropdown">
@@ -43,6 +43,7 @@
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
+    @if (Auth::user()->role_id == 1)
     <li class="nav-item ">
       <a class="nav-link" href="{{ url('/teacher') }}">
         <i class="menu-icon mdi mdi-television"></i>
@@ -55,6 +56,7 @@
         <span class="menu-title">Siswa</span>
       </a>
     </li>
+    @endif
     <li class="nav-item ">
       <a class="nav-link" href="{{ url('/theory') }}">
         <i class="menu-icon mdi mdi-television"></i>
@@ -65,12 +67,6 @@
       <a class="nav-link" href="{{ url('/exam') }}">
         <i class="menu-icon mdi mdi-television"></i>
         <span class="menu-title">Ujian</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="https://www.bootstrapdash.com/demo/star-laravel-free/documentation/documentation.html" target="_blank">
-        <i class="menu-icon mdi mdi-file-outline"></i>
-        <span class="menu-title">Documentation</span>
       </a>
     </li>
   </ul>
