@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', [AuthController::class, 'login']);
+Route::get('theory', [TheoryController::class,'index']);
+Route::get('theory/{id}', [TheoryController::class,'show']);
+Route::get('exam', [TheoryController::class,'index']);
+Route::get('exam/{id}', [TheoryController::class,'show']);
 Route::middleware('auth:api')->group( function () {
-    Route::get('theory', [TheoryController::class,'index']);
 });
